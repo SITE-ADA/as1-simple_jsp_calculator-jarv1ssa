@@ -2,8 +2,6 @@
 <%@ page import = "controllers.Calculator" %>
 
 <%
-  Calculator calculator;
-
   String p1 = request.getParameter("p1");
   String p2 = request.getParameter("p2");
   String op = request.getParameter("op");
@@ -18,7 +16,11 @@
     secondOperand = 0;
   }
 
-  calculator = new Calculator(firstOperand, secondOperand);
+  if (op == null) {
+    op = "add";
+  }
+
+  Calculator calculator = new Calculator(firstOperand, secondOperand, op);
 %>
 
 <!DOCTYPE html>
@@ -27,9 +29,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/link.css">
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Simple JSP Calculator</title>
   </head>
   <body>
@@ -70,15 +70,12 @@
       <div class="result">
         Result: 
         <%
-          if (op != null && firstOperand != 0) {
-            calculator.setOperation(op);
-            out.print(calculator.compute());
-          }
+          out.print(calculator.compute());
         %>
       </div>
     </form>
 
-    <a href="info.jsp" class="link">Show report</a>
+    <a href="info.jsp" class="link">Client info</a>
 
     <script src="js/main.js"></script>
   </body>

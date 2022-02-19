@@ -2,15 +2,12 @@ package controllers;
 
 public class Calculator {
   private int firstOperand, secondOperand;
-  private double result;
   private String operation;
+  private double result;
 
-  public Calculator(int firstOperand, int secondOperand) {
+  public Calculator(int firstOperand, int secondOperand, String operation) {
     this.firstOperand = firstOperand;
     this.secondOperand = secondOperand;
-  }
-
-  public void setOperation(String operation) {
     this.operation = operation;
   }
 
@@ -29,6 +26,10 @@ public class Calculator {
         break;
 
       case "div":
+        if (this.secondOperand == 0) {
+          throw new ArithmeticException("Division by zero");
+        }
+        
         result = (double) this.firstOperand / this.secondOperand;
         break;
 
